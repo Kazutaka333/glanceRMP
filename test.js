@@ -7,6 +7,7 @@ function httpGetAsync(theUrl, callback)
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
+    console.log(xmlHttp.response.getByElements());
 }
 
 function makeQuery(name, college)
@@ -22,4 +23,10 @@ function makeQuery(name, college)
 var baseURL = "http://www.ratemyprofessors.com/search.jsp?";
 var name = "Derrick Smith";
 
-httpGetAsync(baseURL+makeQuery(name, "Laney");
+httpGetAsync(baseURL + makeQuery(name, "Laney"), function(){});
+/*
+var client = new HttpClient();
+client.get(baseURL + makeQuery(name, "Laney"), function(response) {
+    console.log(response);        
+});
+*/
