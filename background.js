@@ -1,9 +1,5 @@
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://www.ratemyprofessors.com/", true);
-xhr.onreadystatechange = function() {
-  if (xhr.readyState == 4) {
-    // innerText does not let the attacker inject HTML elements.
-    document.getElementById("resp").innerText = xhr.responseText;
-  }
-}
-xhr.send();
+chrome.browserAction.onClicked.addListener(function(tab) {
+  // No tabs or host permissions needed!
+  chrome.tabs.executeScript(null, {file: "functions.js"});
+
+});
