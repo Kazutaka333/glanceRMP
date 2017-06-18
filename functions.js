@@ -114,35 +114,65 @@ function addRates() {
    </table>
    */
 
-  for (var i = 0; i < table.length; i++) {
-    var thead = table[i].querySelector("table > tbody > tr");
+  asyncLoop(table.length, function(loop) {
+
+    var thead = table[loop.iteration()].querySelector("table > tbody > tr");
     var th = thead.firstElementChild;
     th.textContent = "Rate";
     thead.appendChild(th);
 
-    var row = table[i].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
+    var row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
 
-    var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent;
+    var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
+    var url = "http://www.ratemyprofessors.com/search.jsp?query=" + instructorName;
+    url = "http://www.ratemyprofessors.com/search.jsp?query=Blake+Johnson";
+    console.log(url);
 
-    var td = row.firstElementChild;
-    td.textContent = "3.0";
-    row.appendChild(td);
-  }
+    chrome.runtime.sendMessage(url, function (responseText) {
+
+      var td = row.firstElementChild;
+      td.textContent = responseText;
+      row.appendChild(td);
+
+      loop.next();
+
+
+    })
+  }, function () {
+    console.log('cycle ended')
+  });
+
 }
 
-// Date: 2017/06/17
-// Author: J.W
-// Description: HTTP GET request.
-// Issue: This may have security vulnerability.
-function httpGetAsync(url, callback) {
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function() {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-      callback(xmlHttp.responseText);
+function asyncLoop(iterations, func, callback) {
+  var index = 0;
+  var done = false;
+  var loop = {
+    next: function() {
+      if (done) {
+        return;
+      }
+
+      if (index < iterations) {
+        index++;
+        func(loop);
+
+      } else {
+        done = true;
+        callback();
+      }
+    },
+
+    iteration: function() {
+      return index - 1;
+    },
+
+    break: function() {
+      done = true;
+      callback();
+    }
   };
-  xmlHttp.open("GET", url, true); // true for asynchronous
-  xmlHttp.send(null);
+
+  loop.next();
+  return loop;
 }
-
-
-
