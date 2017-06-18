@@ -125,7 +125,9 @@ function addRates() {
     var url = "http://www.ratemyprofessors.com/search.jsp?query=" + instructorName;
     url = "http://www.ratemyprofessors.com/search.jsp?query=Blake+Johnson";
 
-    chrome.runtime.sendMessage(url, function (responseText) {
+    // console.log(url);
+
+    chrome.runtime.sendMessage(instructorName, function (responseText) {
 
       console.log(responseText);
 
@@ -143,6 +145,9 @@ function addRates() {
 
 }
 
+// Date: 2017/06/18
+// Author: J.W
+// Description: this function enables loop of async function calls
 function asyncLoop(iterations, func, callback) {
   var index = 0;
   var done = false;
