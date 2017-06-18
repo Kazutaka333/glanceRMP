@@ -6,21 +6,28 @@
 
 
 // RMPQuery class
+// date: 2017/06/18
+// description: Query class that holds info used for searching
+//              Query Object is passed to RMPSearch
 function RMPQuery (college, profName) {
     this.college = college;
     this.profName = profName;
 }
 
-
-// RMPSearch class
-function RMPSearch (query) {
-    this.query = query;
+// RMPProf class
+// data: 2017/06/18
+// description: this class includes detailed rate of one professor.
+function RMPProf (profName) {
+    this.profName = profName;
+    this.overallQuality = overallQuality;
     this.url = "";
-    this.rate = "";
-    this.name = "";
+    this.college;
+    this.rate = ""; // we could make Rate class, which include more detailed rate
+}
 
-    function search() {
-        // search with query and set above member variables
-    }
-    search();
+// RMPSearch function
+// date: 2017/06/18
+// description: Search with query and return RMProf object
+function RMPSearch (query) {
+    // search with query and set above member variables
 }
