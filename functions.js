@@ -12,10 +12,8 @@ addRates();
 function addRates() {
   var iframe = document.querySelector("iframe");
   var iframeDocument = iframe.contentWindow.document;
-  console.log(iframeDocument);
 
   var table = iframeDocument.querySelectorAll("table[id^='SSR_CLSRCH_MTG1']");
-  console.log(table);
   /*
    <table cellspacing="0" class="PSLEVEL1GRIDNBONBO" id="SSR_CLSRCH_MTG1$scroll$0" dir="ltr" cols="7" width="578" cellpadding="2">
      <tbody>
@@ -126,9 +124,10 @@ function addRates() {
     var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
     var url = "http://www.ratemyprofessors.com/search.jsp?query=" + instructorName;
     url = "http://www.ratemyprofessors.com/search.jsp?query=Blake+Johnson";
-    console.log(url);
 
     chrome.runtime.sendMessage(url, function (responseText) {
+
+      console.log(responseText);
 
       var td = row.firstElementChild;
       td.textContent = responseText;
