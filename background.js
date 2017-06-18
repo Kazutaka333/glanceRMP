@@ -1,3 +1,8 @@
+/*
+ File name: background.js
+ Description: prepare to run functions in functions.js
+ */
+
 // Date: 2017/06/17
 // Author: J.W
 // Description: Run functions.js when extension is clicked
@@ -55,12 +60,16 @@ chrome.runtime.onMessage.addListener(function(instructorName, sender, callback) 
         console.log(span);
 
         var index = undefined;
+        var colleges = ["Laney College", "Berkley City College", "College of Alameda", "Merrit College"];
         for (var i = 0; i < span.length; i++) {
           var collegeName = span[i].textContent;
-          if (collegeName.startsWith("Laney College")) {
-            index = i;
-            break;
+          for (var j = 0; j < colleges.length; j++) {
+            if (collegeName.startsWith(colleges[j])) { // not case-sensitive
+              index = i;
+              break;
+            }
           }
+
         }
         if (index === undefined) callback("N/A");
 
