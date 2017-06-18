@@ -123,12 +123,11 @@ function addRates() {
 
     var row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
 
-    var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
-    var url = "http://www.ratemyprofessors.com/search.jsp?query=" + instructorName;
-    url = "http://www.ratemyprofessors.com/search.jsp?query=Blake+Johnson";
-    console.log(url);
+    var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent;
 
-    chrome.runtime.sendMessage(url, function (responseText) {
+    // console.log(url);
+
+    chrome.runtime.sendMessage(instructorName, function (responseText) {
 
       var td = row.firstElementChild;
       td.textContent = responseText;
@@ -144,6 +143,9 @@ function addRates() {
 
 }
 
+// Date: 2017/06/18
+// Author: J.W
+// Description: this function enables loop of async function calls
 function asyncLoop(iterations, func, callback) {
   var index = 0;
   var done = false;
