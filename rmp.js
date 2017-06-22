@@ -23,6 +23,8 @@ function RMPProf (profName) {
     this.url = "";
     this.college;
     this.rate = ""; // we could make Rate class, which include more detailed rate
+    this.numComments = 0;
+    this.levelOfDifficulty = 0;
 }
 
 // RMPSearch function
