@@ -2,18 +2,28 @@
  * Created by one on 6/22/17.
  */
 
-function Professor(name, college, rate, difficulty, url, numReviews) {
-  this.name = name;
-  this.college = college;
-  this.rate = rate;
-  this.difficulty = difficulty;
-  this.url = url;
-  this.numReviews = numReviews;
+function Professor() {
+  // all properties are with type String
+  this.name = "";
+  this.college = "";
+  this.rate = "";
+  this.difficulty = "";
+  this.url = "";
+  this.numReviews = "";
 }
+
+getProfessorInfo("hello", " sdaf", function(name) {
+  console.log("calling callback");
+});
 
 function getProfessorInfo(name, sender, callback) {
 
-  var professor = Professor();
+  if (localStorage[name] !== undefined) {
+    callback(localStorage[name]);
+    return true;
+  }
+
+  var professor = new Professor();
   professor.name = name;
 
   var url = "http://www.ratemyprofessors.com/search.jsp?query=" + name.replace(" ", "+");
@@ -140,6 +150,9 @@ function getProfessorInfo(name, sender, callback) {
 
               // Assign url after 'try' to make sure it's a valid url
               professor.url = url2;
+
+              // professor object is ready now
+              localStorage["name"] = JSON.stringify(professor);
               callback(professor);
             } catch(err) {
               console.log(err);
