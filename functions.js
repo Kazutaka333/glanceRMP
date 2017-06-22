@@ -135,10 +135,10 @@ function addRates() {
       td.textContent = responseText;
       row.appendChild(td);
 
-      loop.next();
+    });
 
+    loop.next();
 
-    })
   }, function () {
     console.log('cycle ended')
   });
