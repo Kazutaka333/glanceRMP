@@ -13,8 +13,8 @@
   },
   "browser_action": {
       "default_title": "Rate My Professor on Peralta Passport",
-      "default_icons" : { "19" : "19icons.png",
-			                    "38" : "38icons.png"}
+      "default_icons" : { 	"19" : "19icons.png",
+		                "38" : "38icons.png"}
   },
     "icons" : {
 	                        "16" : "16icons.png",
