@@ -1,6 +1,15 @@
-/**
- * Created by one on 6/22/17.
+/*
+ File name: rmp-api.js
+ Description: call requestProfessorInfo() to get professor object back
+ Author: J.W.
+ Date: 2017/06/23
+ How to use:
+   requestProfessorInfo("Junhong", function(professor) {
+     // do something
+   });
+
  */
+
 
 function Professor() {
   // all properties are with type String
@@ -12,10 +21,18 @@ function Professor() {
   this.numReviews = "";
 }
 
-getProfessorInfo("hello", " sdaf", function(name) {
-  console.log("calling callback");
-});
+// Date: 2017/06/23
+// Author: J.W
+// Description: client side function call.
+function requestProfessorInfo(name, callback) {
 
+  chrome.runtime.sendMessage(name, callback);
+
+}
+
+// Date: 2017/06/23
+// Author: J.W
+// Description: this function does all the needy greedy stuff to get professor information
 function getProfessorInfo(name, sender, callback) {
 
   if (localStorage[name] !== undefined) {
@@ -179,4 +196,20 @@ function getProfessorInfo(name, sender, callback) {
   return true;
 
 }
+
+// Date: 2017/06/17
+// Author: J.W
+// Description: Run functions.js when extension is clicked
+chrome.browserAction.onClicked.addListener(function(tab) {
+  // No tabs or host permissions needed!
+  chrome.tabs.executeScript(null, {file: "functions.js"});
+
+});
+
+// Date: 2017/06/17
+// Author: J.W
+// Description: Prepare to get request from client calling requestProfessorInfo()
+chrome.runtime.onMessage.addListener(getProfessorInfo);
+
+
 
