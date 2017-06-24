@@ -129,6 +129,7 @@ function addRates() {
 
     chrome.runtime.sendMessage(instructorName, function (responseText) {
 
+      let row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
       var td = row.firstElementChild;
       td.textContent = responseText;
       row.appendChild(td);
