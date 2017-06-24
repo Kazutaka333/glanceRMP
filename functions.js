@@ -159,7 +159,7 @@ function asyncLoop(iterations, func) {
 
       } else {
         done = true;
-        callback();
+        console.log('cycle ended');
       }
     },
 
