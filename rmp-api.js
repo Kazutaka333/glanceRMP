@@ -11,10 +11,11 @@ function Professor() {
   this.url = "";
   this.numReviews = "";
 }
-
+/*
 getProfessorInfo("hello", " sdaf", function(name) {
   console.log("calling callback");
 });
+*/
 
 function getProfessorInfo(name, sender, callback) {
 

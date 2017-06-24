@@ -14,6 +14,7 @@ function addRates() {
   var iframeDocument = iframe.contentWindow.document;
 
   var table = iframeDocument.querySelectorAll("table[id^='SSR_CLSRCH_MTG1']");
+  var rateLabel = "Rate";
   /*
    <table cellspacing="0" class="PSLEVEL1GRIDNBONBO" id="SSR_CLSRCH_MTG1$scroll$0" dir="ltr" cols="7" width="578" cellpadding="2">
      <tbody>
@@ -114,22 +115,19 @@ function addRates() {
 
   asyncLoop(table.length, function(loop) {
 
-    var thead = table[loop.iteration()].querySelector("table > tbody > tr");
+    var currTable = table[loop.iteration()];
+
+    // add rate column
+    var thead = currTable.querySelector("table > tbody > tr");
     var th = thead.firstElementChild;
-    th.textContent = "Rate";
+    th.textContent = rateLabel;
     thead.appendChild(th);
 
-    var row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
-
-    var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
-    var url = "http://www.ratemyprofessors.com/search.jsp?query=" + instructorName;
-    url = "http://www.ratemyprofessors.com/search.jsp?query=Blake+Johnson";
-
-    // console.log(url);
+    // extract instructor name
+    var instructorRow = currTable.querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
+    var instructorName = instructorRow.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
 
     chrome.runtime.sendMessage(instructorName, function (responseText) {
-
-      console.log(responseText);
 
       var td = row.firstElementChild;
       td.textContent = responseText;
@@ -139,8 +137,6 @@ function addRates() {
 
     loop.next();
 
-  }, function () {
-    console.log('cycle ended')
   });
 
 }
@@ -148,7 +144,7 @@ function addRates() {
 // Date: 2017/06/18
 // Author: J.W
 // Description: this function enables loop of async function calls
-function asyncLoop(iterations, func, callback) {
+function asyncLoop(iterations, func) {
   var index = 0;
   var done = false;
   var loop = {
@@ -173,7 +169,7 @@ function asyncLoop(iterations, func, callback) {
 
     break: function() {
       done = true;
-      callback();
+      console.log('cycle ended');
     }
   };
 
