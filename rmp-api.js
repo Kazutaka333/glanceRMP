@@ -11,24 +11,17 @@
  */
 
 
-function Professor() {
-  // all properties are with type String
-  this.name = "";
-  this.college = "";
-  this.rate = "";
-  this.difficulty = "";
-  this.url = "";
-  this.numReviews = "";
-}
+// function Professor(name, college, rate, difficulty, url, numReviews) {
+//   // all properties are with type String
+//   this.name = name;
+//   this.college = college;
+//   this.rate = rate;
+//   this.difficulty = difficulty;
+//   this.url = url;
+//   this.numReviews = numReviews;
+// }
 
-// Date: 2017/06/23
-// Author: J.W
-// Description: client side function call.
-function requestProfessorInfo(name, callback) {
 
-  chrome.runtime.sendMessage(name, callback);
-
-}
 
 // Date: 2017/06/23
 // Author: J.W
@@ -40,9 +33,8 @@ function getProfessorInfo(name, sender, callback) {
     return true;
   }
 
-  var professor = new Professor();
+  var professor = new Object();
   professor.name = name;
-
   var url = "http://www.ratemyprofessors.com/search.jsp?query=" + name.replace(" ", "+");
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function() {
@@ -153,7 +145,7 @@ function getProfessorInfo(name, sender, callback) {
               professor.rate = rating;
               professor.difficulty = difficulty;
 
-              var numReviews = doc.querySelector("div[class=rating-count]");
+              var numReviews = doc.querySelector("div[class='table-toggle rating-count active']").textContent;
 
               /*
                <div class="table-toggle rating-count active" data-table="rating-filter">
