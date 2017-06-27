@@ -11,6 +11,7 @@
  */
 
 
+<<<<<<< HEAD
 // function Professor(name, college, rate, difficulty, url, numReviews) {
 //   // all properties are with type String
 //   this.name = name;
@@ -20,6 +21,23 @@
 //   this.url = url;
 //   this.numReviews = numReviews;
 // }
+=======
+function Professor() {
+  // all properties are with type String
+  this.name = "";
+  this.college = "";
+  this.rate = "";
+  this.difficulty = "";
+  this.url = "";
+  this.numReviews = "";
+}
+
+
+// Date: 2017/06/23
+// Author: J.W
+// Description: client side function call.
+function requestProfessorInfo(name, callback) {
+>>>>>>> 36bbbee7cde93c4912f019951df6d5f639c327c3
 
 
 

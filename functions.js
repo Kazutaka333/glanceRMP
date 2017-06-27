@@ -14,6 +14,7 @@ function addRates() {
   var iframeDocument = iframe.contentWindow.document;
 
   var table = iframeDocument.querySelectorAll("table[id^='SSR_CLSRCH_MTG1']");
+  var rateLabel = "Rate";
   /*
    <table cellspacing="0" class="PSLEVEL1GRIDNBONBO" id="SSR_CLSRCH_MTG1$scroll$0" dir="ltr" cols="7" width="578" cellpadding="2">
      <tbody>
@@ -114,9 +115,12 @@ function addRates() {
 
   asyncLoop(table.length, function(loop) {
 
-    var thead = table[loop.iteration()].querySelector("table > tbody > tr");
+    var currTable = table[loop.iteration()];
+
+    // add rate column
+    var thead = currTable.querySelector("table > tbody > tr");
     var th = thead.firstElementChild;
-    th.textContent = "Rate";
+    th.textContent = rateLabel;
     thead.appendChild(th);
     var th2 = thead.firstElementChild;
     th2.textContent = "difficulty";
@@ -125,11 +129,21 @@ function addRates() {
     th3.textContent = "numReviews";
     thead.appendChild(th3);
 
+<<<<<<< HEAD
     var row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
 
     var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
 
     requestProfessorInfo(instructorName, function(professor) {
+=======
+    // extract instructor name
+    var instructorRow = currTable.querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
+    var instructorName = instructorRow.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
+
+    chrome.runtime.sendMessage(instructorName, function (responseText) {
+
+      let row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
+>>>>>>> 36bbbee7cde93c4912f019951df6d5f639c327c3
       var td = row.firstElementChild;
       td.textContent = (professor.rate === undefined) ? "N/A" : professor.rate;
       row.appendChild(td);
@@ -144,8 +158,6 @@ function addRates() {
 
     loop.next();
 
-  }, function () {
-    console.log('cycle ended')
   });
 
 }
@@ -153,7 +165,7 @@ function addRates() {
 // Date: 2017/06/18
 // Author: J.W
 // Description: this function enables loop of async function calls
-function asyncLoop(iterations, func, callback) {
+function asyncLoop(iterations, func) {
   var index = 0;
   var done = false;
   var loop = {
@@ -168,7 +180,7 @@ function asyncLoop(iterations, func, callback) {
 
       } else {
         done = true;
-        callback();
+        console.log('cycle ended');
       }
     },
 
@@ -178,7 +190,7 @@ function asyncLoop(iterations, func, callback) {
 
     break: function() {
       done = true;
-      callback();
+      console.log('cycle ended');
     }
   };
 
