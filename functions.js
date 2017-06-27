@@ -3,8 +3,6 @@
  Description: Collection of functions to run on the backend of the extension
  */
 
-addRates();
-
 // Date: 2017/06/17
 // Author: J.W
 // Description: Add a new column "Rate" next to "Status"
@@ -129,21 +127,12 @@ function addRates() {
     th3.textContent = "numReviews";
     thead.appendChild(th3);
 
-<<<<<<< HEAD
     var row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
 
     var instructorName = row.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
 
     requestProfessorInfo(instructorName, function(professor) {
-=======
-    // extract instructor name
-    var instructorRow = currTable.querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
-    var instructorName = instructorRow.querySelector("span[id^=MTG_INSTR]").textContent.replace(" ", "+");
 
-    chrome.runtime.sendMessage(instructorName, function (responseText) {
-
-      let row = table[loop.iteration()].querySelector("table > tbody > tr[id^=trSSR_CLSRCH_MTG1]");
->>>>>>> 36bbbee7cde93c4912f019951df6d5f639c327c3
       var td = row.firstElementChild;
       td.textContent = (professor.rate === undefined) ? "N/A" : professor.rate;
       row.appendChild(td);

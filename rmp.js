@@ -32,7 +32,7 @@ function RMPProf (profName) {
 // description: Search with query and return RMProf object
 function RMPSearch (query) {
     this.url = "http://www.ratemyprofessors.com/search.jsp?query=";
-    let prof = new RMPProf(query.profName);
+    var prof = new RMPProf(query.profName);
 
     // we might wanna remove non alphabetical character before this
     this.url += encodeURIComponent(query.profName + " " + query.college);

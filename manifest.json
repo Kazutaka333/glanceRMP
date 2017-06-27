@@ -12,14 +12,17 @@
     "persistent": false
   },
   "browser_action": {
-      "default_title": "Rate My Professor on Peralta Passport",
-      "default_icons" : { 	"19" : "19icons.png",
-		                "38" : "38icons.png"}
+    "default_title": "Rate My Professor on Peralta Passport",
+    "default_icons": {
+      "19" : "/resources/19icons.png",
+      "38" : "/resources/38icons.png"
+    }
   },
-    "icons" : {
-	                        "16" : "16icons.png",
-	                        "48" : "48icons.png",
-                        	"128" : "128icons.png"},
+  "icons" : {
+    "16" : "/resources/16icons.png",
+    "48" : "/resources/48icons.png",
+    "128" : "/resources/128icons.png"
+  },
 
   "manifest_version": 2
 }
