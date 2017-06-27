@@ -8,7 +8,7 @@
     "https://*/*"
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["rmp-api.js"],
     "persistent": false
   },
   "browser_action": {
